@@ -49,6 +49,7 @@
       </v-col>
     </v-row>
   </section>
+  <router-view/>
 </template>
 
 <script>
