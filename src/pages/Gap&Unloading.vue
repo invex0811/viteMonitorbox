@@ -69,7 +69,7 @@ export default {
           'NV - Nevada',
           'CA - California'
         ],
-        src: '../src/images/la.jpg'
+        src: 'https://images.unsplash.com/photo-1580655653885-65763b2597d0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
       },
       {
         zoneName: 'Mountain',
@@ -85,7 +85,7 @@ export default {
           'AZ - Arizona',
           'NM - New Mexico',
         ],
-        src: '../src/images/wayoming.jpg'
+        src: 'https://images.unsplash.com/photo-1624375147958-678d727cc0c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
       },
       {
         zoneName: 'Central',
@@ -110,7 +110,7 @@ export default {
           'LA - Louisiana',
           'TX - Texas'
         ],
-        src: '../src/images/texas.jpg'
+        src: 'https://images.unsplash.com/photo-1490377273829-e0ae2ce99279?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
       },
       {
         zoneName: 'Eastern',
@@ -141,7 +141,7 @@ export default {
           'GA - Georgia',
           'FL - Florida'
         ],
-        src: '../src/images/new-york.jpg'
+        src: 'https://images.unsplash.com/photo-1541535650810-10d26f5c2ab3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1476&q=80'
       },
     ],
     denver: null,
