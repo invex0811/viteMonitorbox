@@ -69,7 +69,7 @@ export default {
           'NV - Nevada',
           'CA - California'
         ],
-        src: '/src/images/la.jpg'
+        src: '../src/images/la.jpg'
       },
       {
         zoneName: 'Mountain',
@@ -85,7 +85,7 @@ export default {
           'AZ - Arizona',
           'NM - New Mexico',
         ],
-        src: '/src/images/wayoming.jpg'
+        src: '../src/images/wayoming.jpg'
       },
       {
         zoneName: 'Central',
@@ -110,7 +110,7 @@ export default {
           'LA - Louisiana',
           'TX - Texas'
         ],
-        src: '/src/images/texas.jpg'
+        src: '../src/images/texas.jpg'
       },
       {
         zoneName: 'Eastern',
@@ -141,7 +141,7 @@ export default {
           'GA - Georgia',
           'FL - Florida'
         ],
-        src: '/src/images/new-york.jpg'
+        src: '../src/images/new-york.jpg'
       },
     ],
     denver: null,
