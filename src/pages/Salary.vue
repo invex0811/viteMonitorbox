@@ -50,16 +50,64 @@
                 class="mb-2"
                 v-if="input__dollarExchange"
             />
-
           </v-col>
         </v-row>
       </v-form>
+      <v-row justify="center" no-gutters class="mb-2">
+        <v-col cols="2" class="d-flex flex-column align-center">
+          <div class="d-flex">
+            <v-checkbox
+                label="Tax"
+                v-model="input__tax"
+                hide-details
+            />
+            <v-checkbox
+                label="4% Weekend"
+                v-model="input__4percentWeekend"
+                hide-details
+            />
+            <v-checkbox
+                label="Dollar exchange"
+                v-model="input__dollarExchange"
+                hide-details
+            />
+          </div>
+          <div class="d-flex" v-if="allCheckboxes">
+            <v-checkbox
+                label="Rent"
+                v-model="input__rent"
+                hide-details
+            />
+            <v-checkbox
+                label="TimeX2"
+                v-model="input__timeX2"
+                hide-details
+            />
+            <v-checkbox
+                label="Cash bonus"
+                v-model="input__cashBonus"
+                hide-details
+            />
+          </div>
+          <v-btn
+            size="x-small"
+            variant="outlined"
+            @click="allCheckboxes = !allCheckboxes"
+          >
+            <v-icon
+              :icon="allCheckboxes ? 'expand_less' : 'expand_more'"
+            />
+          </v-btn>
+        </v-col>
+      </v-row>
       <v-row justify="center" class="mb-1">
         <v-col cols="6" class="d-flex justify-center align-center">
-            Total cash :
-            <span> {{ result + ' $' }}</span>
+          Total cash :
+          <span v-if="totalMoney>0"> {{ result + ' $' }}</span>
 
-            <span v-if="this.input__dollarExchange"><v-icon>swap_horiz</v-icon>{{ exchangeMonayToUAH.toFixed(2) + ' UAH' }}</span>
+          <span v-if="this.input__dollarExchange"><v-icon>swap_horiz</v-icon>{{
+              exchangeMonayToUAH.toFixed(2) + ' UAH'
+            }}</span>
           <v-btn size="x-small" class="mx-2" rounded icon color="info" @click="showOverlay = !showOverlay">
             <v-icon>info</v-icon>
             <v-tooltip
@@ -72,14 +120,14 @@
           <v-overlay v-model="showOverlay" class="d-flex align-center justify-center">
             <v-table>
               <thead>
-                <tr>
-                  <th class="text-left">
-                    Name
-                  </th>
-                  <th class="text-left">
-                    Money
-                  </th>
-                </tr>
+              <tr>
+                <th class="text-left">
+                  Name
+                </th>
+                <th class="text-left">
+                  Money
+                </th>
+              </tr>
               </thead>
               <tbody>
               <tr>
@@ -139,75 +187,20 @@
       <v-row justify="center" no-gutters>
         <v-col cols="1" class="d-flex justify-center">
           <v-btn
-            color="success"
-            @click="calculateSalary()"
+              color="success"
+              @click="calculateSalary()"
           >
             OK
           </v-btn>
         </v-col>
-        <v-col cols="1" class="d-flex justify-center">
-          <v-menu
-            v-model="menu"
-            :close-on-content-click="false"
-            anchor="end"
-          >
-            <template v-slot:activator="{ props }">
-              <v-btn
-                  color="indigo"
-                  v-bind="props"
-              >
-                <v-icon icon="check_box" />
-                <v-tooltip
-                  anchor="end"
-                  activator="parent"
-                >
-                  Checkboxes
-                </v-tooltip>
-              </v-btn>
-            </template>
-            <v-card
-              min-width="200"
-            >
-              <v-checkbox
-                label="Tax"
-                v-model="input__tax"
-                hide-details
-              />
-              <v-checkbox
-                  label="4% Weekend"
-                  v-model="input__4percentWeekend"
-                  hide-details
-              />
-              <v-checkbox
-                  label="Rent"
-                  v-model="input__rent"
-                  hide-details
-              />
-              <v-checkbox
-                  label="TimeX2"
-                  v-model="input__timeX2"
-                  hide-details
-              />
-              <v-checkbox
-                  label="Cash bonus"
-                  v-model="input__cashBonus"
-                  hide-details
-              />
-              <v-checkbox
-                  label="Dollar exchange"
-                  v-model="input__dollarExchange"
-                  hide-details
-              />
-            </v-card>
-          </v-menu>
-        </v-col>
       </v-row>
       <v-row justify="center" v-if="input__dollarExchange" class="mt-2">
-        <v-col cols="2" >
-          <v-card class="pa-3 mx-auto"  variant="outlined">
+        <v-col cols="2">
+          <v-card class="pa-3 mx-auto" variant="outlined">
             <v-row>
               <v-col cols="12" class="d-flex justify-center">
-                Курс {{this.valut}} на {{this.exchangeDate}} : <span class="text-red-darken-4 text-decoration-underline"> {{ infoCurentDollar}}</span>
+                Курс {{ this.valut }} на {{ this.exchangeDate }} : <span
+                  class="text-red-darken-4 text-decoration-underline"> {{ infoCurentDollar }}</span>
               </v-col>
               <v-col cols="12" class="d-flex justify-center">
                 <input type="date" v-model="dateForExchenge">
@@ -224,13 +217,13 @@
                     color="primary"
                     size="small"
                     @click="inputCurencyUsdRate()"
-                  >
-                    Apply
-                    <v-tooltip
+                >
+                  Apply
+                  <v-tooltip
                       activator="parent"
                       anchor="end"
                   >
-                      Use this rate
+                    Use this rate
                   </v-tooltip>
                 </v-btn>
               </v-col>
@@ -256,10 +249,10 @@ export default {
     cashBonus: '',
     dollarRate: '',
     workDay: '',
+    allCheckboxes: false,
     showOverlay: false,
-    menu: false,
-    input__tax: false,
-    input__4percentWeekend: false,
+    input__tax: true,
+    input__4percentWeekend: true,
     input__rent: false,
     input__timeX2: false,
     input__cashBonus: false,
@@ -320,7 +313,7 @@ export default {
     plusTax() {
       return 55 * this.input__tax
     },
-    plusRent(){
+    plusRent() {
       return 47 * this.input__rent
     },
     plusTimeX2() {
