@@ -8,14 +8,12 @@
         <router-view/>
       </v-container>
     </v-main>
-
   </v-app>
 </template>
 
 <script>
 import BarMenu from './components/BarMenu.vue'
-import ToolBar from './components/ToolBar.vue';
-
+import ToolBar from "./components/ToolBar.vue"
 export default {
   name: 'App',
 
@@ -23,10 +21,11 @@ export default {
     ToolBar,
     BarMenu
   },
-
   data: () => ({
-    //
   }),
+  methods: {
+
+  }
 }
 </script>
 

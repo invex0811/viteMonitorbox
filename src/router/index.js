@@ -21,25 +21,24 @@ const routes = [
         // meta: {layout:'Navbar'},
         component: () => import('@/pages/Gap&Unloading.vue')
     },
-    // {
-    //     path: '/AuditSpeed',
-    //     name: 'AuditSpeed',
-    //     // meta: {layout:'Navbar'},
-    //     component: () => import('@/views/AuditSpeed.vue')
-    // },
+    {
+        path: '/Game',
+        name: 'Game',
+        // meta: {layout:'Navbar'},
+        component: () => import('@/pages/SlotsGame.vue')
+    },
+    {
+        path: '/times',
+        name: 'Times',
+        component: () => import('@/pages/Times.vue')
+    },
     // {
     //     path: '/test',
     //     name: 'test',
     //     // meta: {layout:'Navbar'},
-    //     component: () => import('@/views/test.vue')
+    //     component: () => import('@/pages/test.vue')
     // },
 
-//   {
-//     path: '/gapDateTime',
-//     name: 'gapDateTime',
-//     meta: {layout:'MainLayout'},
-//     component: () => import('@/views/GapDateTime.vue')
-//   },
 
 ]
 

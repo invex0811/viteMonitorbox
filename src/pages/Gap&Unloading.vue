@@ -1,13 +1,12 @@
 <template>
   <section class="fill-height">
-    <v-row justify="center" align="center" class="fill-height">
+    <v-row justify="center" align="center" class="fill-height" no-gutters>
       <v-col cols="12">
         <v-carousel
-            cycle
-            hide-delimiters
             show-arrows="hover"
             height="700"
-
+            delimiter-icon="flag_circle"
+            color="white"
         >
           <template v-slot:prev="{ props }">
           <v-btn
@@ -35,13 +34,13 @@
             <v-card
               height="100%"
               variant="outlined"
-              class="d-flex flex-column align-center justify-center text-white opacity border-none"
+              class="d-flex flex-column align-center justify-sm-start justify-md-center justify-lg-center text-white opacity border-none"
 
             >
-              <div class="text-h3">{{zoneName}}</div>
-              <div class="text-h4">Time: {{ zoneTime }}</div>
-              <div class="text-h5">Time gap: {{timeZoneGap}}</div>
-              <div class="text-h5">Time unloading: {{timeZoneUnloading}}</div>
+              <div class="text-h3 ">{{zoneName}}</div>
+              <div class="text-h5 ">Time: {{ zoneTime }}</div>
+              <div class="text-h6">Time gap: {{timeZoneGap}}</div>
+              <div class="text-h6">Time unloading: {{timeZoneUnloading}}</div>
             </v-card>
           </v-carousel-item>
 

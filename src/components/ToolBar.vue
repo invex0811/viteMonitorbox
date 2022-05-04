@@ -14,10 +14,11 @@ export default {
 
   }),
   methods:{
-    showBarMenu(){
+    showBarMenu() {
       this.$store.state.show = !this.$store.state.show
-    }
+    },
   }
+
 }
 
 </script>

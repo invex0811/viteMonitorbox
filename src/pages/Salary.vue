@@ -1,9 +1,10 @@
 <template>
   <section>
     <div>
+<!--      Инпуты            -->
       <v-form>
-        <v-row justify="center">
-          <v-col cols="2">
+        <v-row justify="center" no-gutters>
+          <v-col cols="8" lg="2" md="4" sm="4" >
             <v-select
                 variant="outlined"
                 label="Working days"
@@ -53,6 +54,7 @@
           </v-col>
         </v-row>
       </v-form>
+<!--      Чекбоксы            -->
       <v-row justify="center" no-gutters class="mb-2">
         <v-col cols="2" class="d-flex flex-column align-center">
           <div class="d-flex">
@@ -97,11 +99,18 @@
             <v-icon
               :icon="allCheckboxes ? 'expand_less' : 'expand_more'"
             />
+            <v-tooltip
+                activator="parent"
+                anchor="end"
+            >
+              All checkboxes
+            </v-tooltip>
           </v-btn>
         </v-col>
       </v-row>
-      <v-row justify="center" class="mb-1">
-        <v-col cols="6" class="d-flex justify-center align-center">
+<!--      Общая сумма и подробная таблица         -->
+      <v-row justify="center" class="mb-1" no-gutters >
+        <v-col cols="10" class="d-flex justify-center align-center">
           Total cash :
           <span v-if="totalMoney>0"> {{ result + ' $' }}</span>
 
@@ -184,6 +193,7 @@
           </v-overlay>
         </v-col>
       </v-row>
+<!--       Кнопки              -->
       <v-row justify="center" no-gutters>
         <v-col cols="1" class="d-flex justify-center">
           <v-btn
@@ -194,15 +204,16 @@
           </v-btn>
         </v-col>
       </v-row>
-      <v-row justify="center" v-if="input__dollarExchange" class="mt-2">
-        <v-col cols="2">
+<!--       Окно с курсом      -->
+      <v-row justify="center" v-if="input__dollarExchange" class="mt-2" no-gutters>
+        <v-col cols="10" lg="2" md="4" sm="4">
           <v-card class="pa-3 mx-auto" variant="outlined">
-            <v-row>
+            <v-row >
               <v-col cols="12" class="d-flex justify-center">
                 Курс {{ this.valut }} на {{ this.exchangeDate }} : <span
                   class="text-red-darken-4 text-decoration-underline"> {{ infoCurentDollar }}</span>
               </v-col>
-              <v-col cols="12" class="d-flex justify-center">
+              <v-col class="d-flex justify-center">
                 <input type="date" v-model="dateForExchenge">
                 <v-btn
                     color="success"
@@ -263,6 +274,7 @@ export default {
     overRate: 0,
     totalMoney: 0,
     workDayTime: 0,
+    dateForExchenge:  null,
     infoCurentDollar: null,
     exchangeDate: null,
     valut: null,
