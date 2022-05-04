@@ -22,12 +22,6 @@ const routes = [
         component: () => import('@/pages/Gap&Unloading.vue')
     },
     {
-        path: '/Game',
-        name: 'Game',
-        // meta: {layout:'Navbar'},
-        component: () => import('@/pages/SlotsGame.vue')
-    },
-    {
         path: '/times',
         name: 'Times',
         component: () => import('@/pages/Times.vue')
