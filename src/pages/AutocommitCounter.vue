@@ -32,8 +32,35 @@
                 <v-icon>add</v-icon>
               </v-btn>
             </div>
-            <v-btn variant="text" color="error" @click="users.splice(index, 1)">
+
+            <v-btn variant="text" color="error">
               <v-icon> close </v-icon>
+              <v-menu
+                activator="parent"
+                anchor="end center"
+                v-model="user.menu"
+              >
+                <v-card class="d-flex flex-column pa-2">
+                  Delete?
+                  <div>
+                    <v-btn
+                      @click="users.splice(index, 1)"
+                      class="mr-2"
+                      color="success"
+                      size="small"
+                    >
+                      Yes
+                    </v-btn>
+                    <v-btn
+                      @click="user.menu = false"
+                      color="error"
+                      size="small"
+                    >
+                      No
+                    </v-btn>
+                  </div>
+                </v-card>
+              </v-menu>
             </v-btn>
           </v-card>
         </div>
@@ -55,6 +82,7 @@ export default {
       this.users.push({
         name: this.userField,
         amount: 0,
+        menu: false,
       });
       this.userField = null;
     },
