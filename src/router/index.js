@@ -26,6 +26,11 @@ const routes = [
         name: 'Times',
         component: () => import('@/pages/Times.vue')
     },
+    {
+        path: '/autocommitCounter',
+        name: 'Autocommit counter',
+        component: () => import('@/pages/AutocommitCounter.vue')
+    },
     // {
     //     path: '/test',
     //     name: 'test',
