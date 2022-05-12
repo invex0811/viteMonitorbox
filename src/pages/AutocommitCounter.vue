@@ -1,7 +1,7 @@
 <template>
   <section class="fill-height pt-5">
     <v-row justify="center">
-      <v-col cols="4">
+      <v-col cols="10" lg="4" md="4">
         <div class="d-flex align-center">
           <v-text-field
             variant="outlined"
@@ -14,14 +14,14 @@
             Add user
           </v-btn>
         </div>
-        <div class="d-flex flex-column justify-center px-10">
+        <div class="d-flex flex-column justify-center px-lg-10">
           <v-card
             v-for="(user, index) in users"
             :key="index"
-            class="d-flex align-center my-2 px-2"
+            class="d-flex align-center my-2 px-1 px-lg-2"
             height="50"
           >
-            <div>{{ user.name }}</div>
+            <div class="overflow-x-auto">{{ user.name }}</div>
             <v-spacer />
             <div class="d-flex align-center">
               <v-btn @click="user.amount--" variant="text" size="x-small"
