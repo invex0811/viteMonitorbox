@@ -12,7 +12,7 @@ export default createStore({
 
             ],
             titleToolBar: 'Home',
-            
+            changeVeawStyle: false,
         }
     },
 
