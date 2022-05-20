@@ -74,23 +74,25 @@
                 hide-details
             />
           </div>
-          <div class="d-flex" v-if="allCheckboxes">
-            <v-checkbox
-                label="Rent"
-                v-model="input__rent"
-                hide-details
-            />
-            <v-checkbox
-                label="TimeX2"
-                v-model="input__timeX2"
-                hide-details
-            />
-            <v-checkbox
-                label="Cash bonus"
-                v-model="input__cashBonus"
-                hide-details
-            />
-          </div>
+          <v-slide-y-transition>
+            <div class="d-flex" v-if="allCheckboxes">
+              <v-checkbox
+                  label="Rent"
+                  v-model="input__rent"
+                  hide-details
+              />
+              <v-checkbox
+                  label="TimeX2"
+                  v-model="input__timeX2"
+                  hide-details
+              />
+              <v-checkbox
+                  label="Cash bonus"
+                  v-model="input__cashBonus"
+                  hide-details
+              />
+            </div>
+          </v-slide-y-transition>
           <v-btn
             size="x-small"
             variant="outlined"
@@ -286,7 +288,7 @@ export default {
     this.dateForExchenge = DateTime.local().toFormat('kkkk' + 'LL' + 'dd')
     axios
         .get('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=' + this.dateForExchenge + '&json')
-        .then(response => (this.valut = response.data[26].cc, this.infoCurentDollar = response.data[26].rate, this.exchangeDate = response.data[26].exchangedate))
+        .then(response => (this.valut = response.data[25].cc, this.infoCurentDollar = response.data[25].rate, this.exchangeDate = response.data[25].exchangedate))
         .catch(error => this.infoCurentDollar = error);
   },
   methods: {
@@ -294,7 +296,7 @@ export default {
       this.dateForExchenge = DateTime.fromISO(this.dateForExchenge).toFormat('kkkk' + 'LL' + 'dd')
       axios
           .get('https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=' + this.dateForExchenge + '&json')
-          .then(response => (this.valut = response.data[26].cc, this.infoCurentDollar = response.data[26].rate, this.exchangeDate = response.data[26].exchangedate))
+          .then(response => (this.valut = response.data[25].cc, this.infoCurentDollar = response.data[25].rate, this.exchangeDate = response.data[25].exchangedate))
     },
     calculateSalary() {
       this.rateOutput = this.rate                                     // Читать выше для чего эта шляпа
