@@ -10,12 +10,10 @@
     </router-link>
     <v-list
       density="compact"
-      class="text-subtitle-2 ma-2"
-      color="rgba(0,0,0,0)"
-
+      class="text-subtitle-2 ma-2 bg-transparent"
     >
       <router-link
-        class="text-decoration-none"
+        class="text-decoration-none text-white"
         v-for="({icon,title,value,link}, i ) in $store.state.menu"
         :to="link"
         :key="i"
@@ -24,7 +22,6 @@
         <v-list-item
           :title="title"
           :value="value"
-          color="#fff"
           active-color="#2196f3"
           class="v-icon--size-large mb-1"
           rounded="lg"

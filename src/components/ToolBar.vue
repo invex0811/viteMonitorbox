@@ -21,20 +21,36 @@
         :color="$store.state.changeVeawStyle ? 'info' : ''"
       />
     </div>
+
+    <ProfileToolbar v-if="userStatus" />
+    <LoginRegister v-else/>
+
   </v-app-bar>
 </template>
 
 <script>
+import firebase from "firebase/compat";
+import LoginRegister from "./LoginRegister.vue";
+import ProfileToolbar from "./ProfileToolbar.vue";
 export default {
   name: "ToolBar",
-
-  data: () => ({}),
+  components: {ProfileToolbar, LoginRegister},
+  data: () => ({
+    userStatus: false
+  }),
+  mounted() {
+    firebase.auth().onAuthStateChanged( (user) =>{
+      this.userStatus = !!user;
+    })
+  },
   methods: {
     showBarMenu() {
       this.$store.state.show = !this.$store.state.show;
     },
   },
-  computed: {},
+  computed: {
+
+  },
 };
 </script>
 

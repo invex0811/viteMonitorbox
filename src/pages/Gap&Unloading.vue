@@ -9,13 +9,13 @@
             color="white"
         >
           <template v-slot:prev="{ props }">
-          <v-btn
-              variant="outlined"
-              color="white"
-              icon="arrow_back_ios"
-              @click="props.onClick"
-          />
-        </template>
+            <v-btn
+                variant="outlined"
+                color="white"
+                icon="arrow_back_ios"
+                @click="props.onClick"
+            />
+          </template>
           <template v-slot:next="{ props }">
             <v-btn
                 variant="outlined"
@@ -32,9 +32,9 @@
               cover
           >
             <v-card
-              height="100%"
-              variant="outlined"
-              class="d-flex flex-column align-center justify-sm-start justify-md-center justify-lg-center text-white opacity border-none"
+                height="100%"
+                variant="outlined"
+                class="d-flex flex-column align-center justify-sm-start justify-md-center justify-lg-center text-white opacity border-none"
 
             >
               <div class="text-h3 ">{{zoneName}}</div>
@@ -57,6 +57,31 @@ export default {
   name: "Gap&Unloading",
   data: () => ({
     timeZones:[
+      {
+        zoneName: 'Central',
+        zoneTime: '',
+        timeZoneGap: '',
+        timeZoneUnloading: '',
+        states: [
+          'ND - North Dakota',
+          'SD - South Dakota',
+          'NE - Nebraska',
+          'WI - Wisconsin',
+          'MN - Minnesota',
+          'IA - Iowa',
+          'KS - Kansas',
+          'MO - Missouri',
+          'IL - Illinois',
+          'OK - Oklahoma',
+          'AR - Arkansas',
+          'TN - Tennessee',
+          'AL - Alabama',
+          'MS - Mississippi',
+          'LA - Louisiana',
+          'TX - Texas'
+        ],
+        src: 'https://images.unsplash.com/photo-1490377273829-e0ae2ce99279?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+      },
       {
         zoneName: 'Pacific',
         zoneTime: '',
@@ -85,31 +110,6 @@ export default {
           'NM - New Mexico',
         ],
         src: 'https://images.unsplash.com/photo-1624375147958-678d727cc0c4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-      },
-      {
-        zoneName: 'Central',
-        zoneTime: '',
-        timeZoneGap: '',
-        timeZoneUnloading: '',
-        states: [
-          'ND - North Dakota',
-          'SD - South Dakota',
-          'NE - Nebraska',
-          'WI - Wisconsin',
-          'MN - Minnesota',
-          'IA - Iowa',
-          'KS - Kansas',
-          'MO - Missouri',
-          'IL - Illinois',
-          'OK - Oklahoma',
-          'AR - Arkansas',
-          'TN - Tennessee',
-          'AL - Alabama',
-          'MS - Mississippi',
-          'LA - Louisiana',
-          'TX - Texas'
-        ],
-        src: 'https://images.unsplash.com/photo-1490377273829-e0ae2ce99279?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
       },
       {
         zoneName: 'Eastern',
@@ -147,34 +147,31 @@ export default {
     losAngeles: null,
     chicago: null,
     detroit: null,
-
   }),
   mounted() {
-
     setInterval(() => {
       this.losAngeles = DateTime.local().setZone("America/Los_Angeles")
       this.denver = DateTime.local().setZone("America/Denver")
       this.chicago = DateTime.local().setZone("America/Chicago")
       this.detroit = DateTime.local().setZone("America/Detroit")
 
-      this.timeZones[0].zoneTime = this.losAngeles.toFormat('FF')
-      this.timeZones[1].zoneTime = this.denver.toFormat('FF')
-      this.timeZones[2].zoneTime = this.chicago.toFormat('FF')
+      this.timeZones[1].zoneTime = this.losAngeles.toFormat('FF')
+      this.timeZones[2].zoneTime = this.denver.toFormat('FF')
+      this.timeZones[0].zoneTime = this.chicago.toFormat('FF')
       this.timeZones[3].zoneTime = this.detroit.toFormat('FF')
 
-      this.timeZones[0].timeZoneGap = this.losAngeles.minus({days: 9}).toFormat('FF')
-      this.timeZones[1].timeZoneGap = this.denver.minus({days: 9}).toFormat('FF')
-      this.timeZones[2].timeZoneGap = this.chicago.minus({days: 9}).toFormat('FF')
+      this.timeZones[1].timeZoneGap = this.losAngeles.minus({days: 9}).toFormat('FF')
+      this.timeZones[2].timeZoneGap = this.denver.minus({days: 9}).toFormat('FF')
+      this.timeZones[0].timeZoneGap = this.chicago.minus({days: 9}).toFormat('FF')
       this.timeZones[3].timeZoneGap = this.detroit.minus({days: 9}).toFormat('FF')
 
-      this.timeZones[0].timeZoneUnloading = this.losAngeles.minus({days: 8, hours: 12}).toFormat('FF')
-      this.timeZones[1].timeZoneUnloading = this.denver.minus({days: 8, hours: 12}).toFormat('FF')
-      this.timeZones[2].timeZoneUnloading = this.chicago.minus({days: 8, hours: 12}).toFormat('FF')
+      this.timeZones[1].timeZoneUnloading = this.losAngeles.minus({days: 8, hours: 12}).toFormat('FF')
+      this.timeZones[2].timeZoneUnloading = this.denver.minus({days: 8, hours: 12}).toFormat('FF')
+      this.timeZones[0].timeZoneUnloading = this.chicago.minus({days: 8, hours: 12}).toFormat('FF')
       this.timeZones[3].timeZoneUnloading = this.detroit.minus({days: 8, hours: 12}).toFormat('FF')
     }, 1000)
   },
   methods:{
-
   }
 }
 </script>
