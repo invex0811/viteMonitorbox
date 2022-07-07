@@ -5,12 +5,13 @@ import { loadFonts } from './plugins/webfontloader'
 import store from './store/store.js'
 import router from './router'
 
-import firebase from "firebase/compat";
 
+import {initializeApp} from 'firebase/app'
+import {getAuth} from "firebase/auth";
 
 loadFonts()
 
-firebase.initializeApp({
+initializeApp({
     apiKey: "AIzaSyCy37-VIORLTw-TYc-SkWgLitI9v95Qods",
     authDomain: "monitorbox-88b5b.firebaseapp.com",
     projectId: "monitorbox-88b5b",
@@ -21,9 +22,10 @@ firebase.initializeApp({
     databaseURL: 'https://monitorbox-88b5b-default-rtdb.europe-west1.firebasedatabase.app'
 })
 
+
 let app
 
-firebase.auth().onAuthStateChanged(() => {
+getAuth().onAuthStateChanged(() => {
     if(!app){
         app = createApp(App)
             .use(vuetify)

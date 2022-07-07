@@ -8,7 +8,7 @@
       <v-col
           v-bind="props"
           :cols="isHovering ? 12 / $store.state.menu.length + 2 : ''"
-          class="transition"
+          class="transition position-relative"
       >
         <router-link
             class="text-decoration-none"
@@ -16,9 +16,9 @@
             @click="$store.state.titleToolBar = title"
         >
             <v-img
-                :src="src"
-                min-height="100%"
-                cover
+              :src="src"
+              min-height="100%"
+              cover
 
             >
                 <div
@@ -42,7 +42,7 @@
 export default {
   name: "Home",
   data: () => ({
-
+    url: null,
   }),
 
   computed:{

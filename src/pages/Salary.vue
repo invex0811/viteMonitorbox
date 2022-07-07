@@ -14,6 +14,15 @@
               v-model="workDay"
               :rules="[(v) => !!v || 'Item is required']"
             />
+            <v-select
+              v-if="input__holidays"
+              variant="outlined"
+              label="Holidays"
+              hide-details="auto"
+              :items="[1,2,3]"
+              v-model="holidays"
+              class="my-2"
+            />
             <v-text-field
               label="Working time"
               v-model.number="workingTime"
@@ -61,7 +70,7 @@
       </v-form>
       <!--      Чекбоксы            -->
       <v-row justify="center" no-gutters class="mb-2">
-        <v-col cols="4" class="d-flex flex-column align-center">
+        <v-col cols="12" class="d-flex flex-column align-center">
           <div class="d-flex">
             <v-checkbox label="Tax" v-model="input__tax" hide-details />
             <v-checkbox
@@ -84,6 +93,7 @@
                 v-model="input__cashBonus"
                 hide-details
               />
+              <v-checkbox label="Holidays" v-model="input__holidays" hide-details/>
             </div>
           </v-slide-y-transition>
           <v-btn
@@ -127,7 +137,7 @@
               <thead>
                 <tr>
                   <th class="text-left">Name</th>
-                  <th class="text-left">Money</th>
+                  <th class="text-left">Value</th>
                 </tr>
               </thead>
               <tbody>
@@ -178,6 +188,10 @@
                 <tr>
                   <td>Total cash:</td>
                   <td>{{ result + " $" }}</td>
+                </tr>
+                <tr>
+                  <td>Total holidays:</td>
+                  <td>{{ plusHolidays }}</td>
                 </tr>
               </tbody>
             </v-table>
@@ -247,6 +261,7 @@ export default {
     cashBonus: "",
     dollarRate: "",
     workDay: "",
+    holidays: "",
     allCheckboxes: false,
     showOverlay: false,
     input__tax: true,
@@ -255,6 +270,7 @@ export default {
     input__timeX2: false,
     input__cashBonus: false,
     input__dollarExchange: false,
+    input__holidays: false,
     totalTime: 0,
     overTime: 0,
     rateOutput: 0, //Для глаза чтобы тоже было ноль если убрать убедт просто пустая строка "не красиво")))
@@ -344,6 +360,9 @@ export default {
     plusCashBonus() {
       return this.cashBonus * this.input__cashBonus;
     },
+    plusHolidays(){
+      return (this.holidays * 8) * (this.rate * this.input__holidays)
+    },
     result() {
       return Math.round(
         this.totalMoney +
@@ -351,7 +370,9 @@ export default {
             this.plusTax +
             this.plusRent +
             this.plusTimeX2 +
-            this.plusCashBonus)
+            this.plusCashBonus +
+            this.plusHolidays
+          )
       );
     },
     exchangeMonayToUAH() {

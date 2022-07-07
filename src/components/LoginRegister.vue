@@ -100,18 +100,20 @@
 </template>
 
 <script>
-import firebase from 'firebase/compat'
-import router from "../router"
+import {getAuth, signInWithEmailAndPassword,createUserWithEmailAndPassword} from "firebase/auth";
+import {getDatabase, onValue, ref,set} from "firebase/database";
+import router from "../router";
 
 
-function addUserData() {
-  firebase.database().ref('users/').child(firebase.auth().currentUser.uid).set({
-    fullName: '',
-    email: firebase.auth().currentUser.email,
-    role: 'user',
-    photo: '',
-  })
-}
+// function addUserData() {
+//   // getDatabase().ref('users/').child(getAuth().currentUser.uid).set({
+//   //   fullName: '',
+//   //   email: getAuth().currentUser.email,
+//   //   role: 'user',
+//   //   photo: '',
+//   // })
+//
+// }
 
 export default {
   name: "LoginRegister",
@@ -126,33 +128,39 @@ export default {
   }),
   methods: {
     createAccount() {
-      firebase
-          .auth()
-          .createUserWithEmailAndPassword(this.email, this.password)
-          .then((data) => {
+      createUserWithEmailAndPassword(getAuth(),this.email, this.password)
+          .then(()=>{
             router.push('/')
             this.loginWindow = false
-            addUserData()
+            set(ref(getDatabase(),'users/'+ getAuth().currentUser.uid),{
+              fullName: '',
+              email: getAuth().currentUser.email,
+              role: 'user',
+              photo: '',
+            })
           })
-          .catch(error => {
-            console.log(error.code)
-            alert(error.message);
+          .catch((e)=>{
+            console.log(e.code, e.message)
           })
-
     },
     signInOnAccount() {
-          firebase
-          .auth()
-          .signInWithEmailAndPassword(this.email, this.password)
-          .then((data) => {
+      signInWithEmailAndPassword(getAuth(), this.email, this.password)
+          .then(()=>{
             router.push('/')
             this.loginWindow = false
-          })
-          .catch(error => {
-            alert(error)
-          })
+            this.$store.state.user = getAuth().currentUser
+            onValue(ref(getDatabase(), "users/" + getAuth().currentUser.uid), (snapshot) => {
+              this.$store.state.userPhoto = snapshot.val().photo;
+            })
+            this.$store.commit('showAlert',['Login successful','success'])
+            // window.location.reload()
 
-    }
+          })
+          .catch((e)=>{
+            this.$store.commit('showAlert',[e.message,'error'])
+          })
+    },
+
   },
 };
 </script>

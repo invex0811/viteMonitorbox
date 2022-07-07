@@ -23,6 +23,7 @@ export default defineConfig({
   server: {
     host: true
   },
+
   /* remove the need to specify .vue files https://vitejs.dev/config/#resolve-extensions
   resolve: {
     extensions: [

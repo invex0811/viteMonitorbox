@@ -3,6 +3,7 @@
     bottom
     color="#111827"
     v-model="$store.state.show"
+    temporary
 
   >
     <router-link to="/" class="text-decoration-none" @click="$store.state.titleToolBar = 'Home'">
@@ -31,22 +32,29 @@
         </v-list-item>
       </router-link>
     </v-list>
+
+    <template v-slot:append>
+      <v-btn color="error" block class="mb-1" @click="singOut()"> Logout </v-btn>
+    </template>
+
   </v-navigation-drawer>
 
 </template>
 
 <script>
-// import ToolBar from "./ToolBar.vue";
-
+import {getAuth} from "firebase/auth";
+import router from "../router";
 export default {
   name: 'BarMenu',
 
   data: () => ({
 
-
   }),
-  computed:{
-
+  methods:{
+    singOut(){
+      getAuth().signOut()
+      router.push('/')
+    }
   }
 }
 </script>

@@ -22,31 +22,35 @@
       />
     </div>
 
-    <ProfileToolbar v-if="userStatus" />
+    <v-avatar :image="$store.state.userPhoto" icon="account_circle" class="v-card--hover"  @click="$router.push('/userProfile')" v-if="userStatus"/>
     <LoginRegister v-else/>
 
   </v-app-bar>
 </template>
 
 <script>
-import firebase from "firebase/compat";
+import {getAuth} from "firebase/auth";
 import LoginRegister from "./LoginRegister.vue";
-import ProfileToolbar from "./ProfileToolbar.vue";
+
+
+
 export default {
   name: "ToolBar",
-  components: {ProfileToolbar, LoginRegister},
+  components: {LoginRegister},
   data: () => ({
-    userStatus: false
+    userStatus: false,
   }),
   mounted() {
-    firebase.auth().onAuthStateChanged( (user) =>{
+    getAuth().onAuthStateChanged( (user) =>{
       this.userStatus = !!user;
+
     })
   },
   methods: {
     showBarMenu() {
       this.$store.state.show = !this.$store.state.show;
     },
+
   },
   computed: {
 

@@ -21,11 +21,7 @@ const routes = [
         // meta: {layout:'Navbar'},
         component: () => import('@/pages/Gap&Unloading.vue')
     },
-    {
-        path: '/times',
-        name: 'Times',
-        component: () => import('@/pages/Times.vue')
-    },
+   
     {
         path: '/autocommitCounter',
         name: 'Autocommit counter',
