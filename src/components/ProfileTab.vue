@@ -2,18 +2,18 @@
   <div class="d-flex flex-column align-center">
     <v-hover v-slot="{ isHovering, props }">
       <v-img
-          width="150"
-          aspect-ratio="1"
-          :src="$store.state.userPhoto"
-          v-bind="props"
-          class="d-flex align-end"
+        width="150"
+        aspect-ratio="1"
+        :src="$store.state.userPhoto"
+        v-bind="props"
+        class="d-flex align-end"
       >
         <v-expand-transition>
           <v-sheet v-if="isHovering" class="bg-transparent">
             <v-btn
-                variant="text"
-                rounded="0"
-                @click="showImageOverlay = !showImageOverlay"
+              variant="text"
+              rounded="0"
+              @click="showImageOverlay = !showImageOverlay"
             >
               pick photo
               <v-icon icon="add_photo_alternate" />
@@ -22,47 +22,47 @@
         </v-expand-transition>
       </v-img>
     </v-hover>
-
+    <!-- Show photo -->
     <v-overlay
-        v-model="showImageOverlay"
-        class="d-flex align-center justify-center"
+      v-model="showImageOverlay"
+      class="d-flex align-center justify-center"
     >
       <div class="d-flex align-center justify-center">
-        <v-card v-for="photo in usersPhoto" class="pa-2 ma-2">
+        <v-card v-for="photo in usersPhoto" :key="photo" class="pa-2 ma-2">
           <v-img
-              width="200"
-              :src="photo"
-              @click="this.userPhoto = photo,savePhoto()"
-              class="v-card--hover"
+            width="200"
+            :src="photo"
+            @click="(this.userPhoto = photo), savePhoto()"
+            class="v-card--hover"
           />
         </v-card>
       </div>
     </v-overlay>
-
+    <!-- END show photo -->
     <v-table>
       <tbody>
-      <tr>
-        <td>Full name:</td>
-        <td><input :readonly="editingStatus" v-model="fullName" /></td>
-      </tr>
-      <tr>
-        <td>Email:</td>
-        <td>{{ userEmail }}</td>
-      </tr>
-      <tr>
-        <td>Role:</td>
-        <td>{{ role }}</td>
-      </tr>
+        <tr>
+          <td>Full name:</td>
+          <td><input :readonly="editingStatus" v-model="fullName" /></td>
+        </tr>
+        <tr>
+          <td>Email:</td>
+          <td>{{ userEmail }}</td>
+        </tr>
+        <tr>
+          <td>Role:</td>
+          <td>{{ role }}</td>
+        </tr>
       </tbody>
     </v-table>
 
     <div class="d-flex justify-end mt-1">
       <v-btn
-          variant="text"
-          size="x-small"
-          color="info"
-          v-if="editingStatus"
-          @click="editingStatus = !editingStatus"
+        variant="text"
+        size="x-small"
+        color="info"
+        v-if="editingStatus"
+        @click="editingStatus = !editingStatus"
       >
         change data
       </v-btn>
@@ -70,7 +70,6 @@
         Save
       </v-btn>
     </div>
-
   </div>
 </template>
 
@@ -83,7 +82,6 @@ const UID = user.uid;
 
 const db = getDatabase();
 const refUsers = ref(db, "users/" + UID);
-
 
 export default {
   name: "ProfileTab",
@@ -111,7 +109,7 @@ export default {
       onValue(refUsers, (snapshot) => {
         this.role = snapshot.val().role;
         this.fullName = snapshot.val().fullName;
-        this.$store.state.userPhoto = snapshot.val().photo
+        this.$store.state.userPhoto = snapshot.val().photo;
       });
     }
   },
@@ -122,29 +120,25 @@ export default {
           fullName: this.fullName,
         });
         this.editingStatus = true;
-        this.$store.commit('showAlert',['Data saved','success'])
-
-      }catch (e) {
-        this.$store.commit('showAlert',[e.message,'error'])
+        this.$store.commit("showAlert", ["Data saved", "success"]);
+      } catch (e) {
+        this.$store.commit("showAlert", [e.message, "error"]);
       }
-
     },
     savePhoto() {
       try {
         update(refUsers, {
           photo: this.userPhoto,
         });
-        this.$store.commit('showAlert',['Photo changed','success'])
-      }catch (e) {
-        this.$store.commit('showAlert',[e.message,'error'])
+        this.$store.commit("showAlert", ["Photo changed", "success"]);
+      } catch (e) {
+        this.$store.commit("showAlert", [e.message, "error"]);
       }
 
       this.showImageOverlay = false;
     },
-}
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

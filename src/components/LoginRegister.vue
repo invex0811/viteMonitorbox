@@ -17,6 +17,7 @@
               hide-details="auto"
               label="Email"
               class="py-2"
+              :rules="[rules.email,rules.required]"
             />
             <v-text-field
               variant="outlined"
@@ -54,6 +55,7 @@
               hide-details="auto"
               label="Email"
               class="py-2"
+              :rules="[rules.email,rules.required]"
             />
             <v-text-field
               variant="outlined"
@@ -64,19 +66,22 @@
               :append-icon="showPassword ? 'visibility' : 'visibility_off'"
               :type="showPassword ? 'text' : 'password'"
               @click:append="showPassword = !showPassword"
+              :rules="[rules.required,rules.counter]"
             />
-<!--            <v-text-field-->
-<!--              variant="outlined"-->
-<!--              v-model="confirmPassword"-->
-<!--              hide-details="auto"-->
-<!--              label="Confirm password"-->
-<!--              class="py-2"-->
-<!--              :append-icon="-->
-<!--                showConfirmPassword ? 'visibility' : 'visibility_off'-->
-<!--              "-->
-<!--              :type="showConfirmPassword ? 'text' : 'password'"-->
-<!--              @click:append="showConfirmPassword = !showConfirmPassword"-->
-<!--            />-->
+            <v-text-field
+              variant="outlined"
+              v-model="confirmPassword"
+              hide-details="auto"
+              label="Confirm password"
+              class="py-2"
+              :append-icon="
+                showConfirmPassword ? 'visibility' : 'visibility_off'
+              "
+              :type="showConfirmPassword ? 'text' : 'password'"
+              @click:append="showConfirmPassword = !showConfirmPassword"
+
+              :rules="[rules.required,rules.samePassword]"
+            />
             <div>
               <v-btn block color="success" @click="createAccount()">
                 Registration
@@ -125,23 +130,33 @@ export default {
     confirmPassword: null,
     registrationWindow: true,
     showConfirmPassword: false,
+
+    rules: {
+      required: value => !!value || 'Required.',
+      counter: value => value.length > 5 || 'Password must be more than 6 characters',
+      samePassword: value => value === this.password || 'Password must match',
+      email: value => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(value) || 'Invalid e-mail.'
+      },
+    }
   }),
   methods: {
     createAccount() {
-      createUserWithEmailAndPassword(getAuth(),this.email, this.password)
-          .then(()=>{
-            router.push('/')
-            this.loginWindow = false
-            set(ref(getDatabase(),'users/'+ getAuth().currentUser.uid),{
-              fullName: '',
-              email: getAuth().currentUser.email,
-              role: 'user',
-              photo: '',
+        createUserWithEmailAndPassword(getAuth(),this.email, this.password)
+            .then(()=>{
+              router.push('/')
+              this.loginWindow = false
+              set(ref(getDatabase(),'users/'+ getAuth().currentUser.uid),{
+                fullName: '',
+                email: getAuth().currentUser.email,
+                role: 'user',
+                photo: '',
+              })
             })
-          })
-          .catch((e)=>{
-            console.log(e.code, e.message)
-          })
+            .catch((e)=>{
+              console.log(e.code, e.message)
+            })
     },
     signInOnAccount() {
       signInWithEmailAndPassword(getAuth(), this.email, this.password)

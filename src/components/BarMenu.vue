@@ -33,17 +33,13 @@
       </router-link>
     </v-list>
 
-    <template v-slot:append>
-      <v-btn color="error" block class="mb-1" @click="singOut()"> Logout </v-btn>
-    </template>
+
 
   </v-navigation-drawer>
 
 </template>
 
 <script>
-import {getAuth} from "firebase/auth";
-import router from "../router";
 export default {
   name: 'BarMenu',
 
@@ -51,10 +47,7 @@ export default {
 
   }),
   methods:{
-    singOut(){
-      getAuth().signOut()
-      router.push('/')
-    }
+
   }
 }
 </script>

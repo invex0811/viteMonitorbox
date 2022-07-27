@@ -21,40 +21,76 @@
         :color="$store.state.changeVeawStyle ? 'info' : ''"
       />
     </div>
+    <LoginRegister v-if="!userStatus" />
+    <!-- Avatar and menu block -->
+    <div id="showmenu" v-else>
+    <v-avatar
+      :image="$store.state.userPhoto"
+      icon="account_circle"
+      class="v-card--hover"
 
-    <v-avatar :image="$store.state.userPhoto" icon="account_circle" class="v-card--hover"  @click="$router.push('/userProfile')" v-if="userStatus"/>
-    <LoginRegister v-else/>
-
+    />
+    <v-menu activator="#showmenu">
+      <v-list>
+        <router-link v-for="item in itemMenu" :key="item.title" :to="item.src" class="text-decoration-none text-black">
+          <v-list-item :append-icon="item.icon" @click="$store.state.tab = item.title.toLowerCase()">
+            {{ item.title }}
+          </v-list-item>
+        </router-link>
+        <v-list-item>
+          <v-btn color="error" variant="tonal" class="mb-1" @click="singOut()"> Logout </v-btn>
+        </v-list-item>
+      </v-list>
+    </v-menu>
+    </div>
+    <!-- END avatar and menu block -->
   </v-app-bar>
 </template>
 
 <script>
-import {getAuth} from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import LoginRegister from "./LoginRegister.vue";
-
-
+import router from "../router";
 
 export default {
   name: "ToolBar",
-  components: {LoginRegister},
+  components: { LoginRegister },
   data: () => ({
     userStatus: false,
+    itemMenu: [
+      {
+        title: "Profile",
+        src: "/userProfile",
+        icon: 'account_circle'
+      },
+      {
+        title: "Setting",
+        src: "/userProfile",
+        icon: 'settings'
+      },
+    ],
   }),
   mounted() {
-    getAuth().onAuthStateChanged( (user) =>{
+    getAuth().onAuthStateChanged((user) => {
       this.userStatus = !!user;
-
-    })
+    });
   },
   methods: {
     showBarMenu() {
       this.$store.state.show = !this.$store.state.show;
     },
+    singOut(){
+      try {
+        getAuth().signOut()
+        router.push('/')
+        this.$store.commit('showAlert',['Successful logout','success'])
+      }catch (e) {
+        this.$store.commit('showAlert',[e.message,'error'])
+      }
 
+    }
   },
-  computed: {
-
-  },
+  computed: {},
 };
 </script>
 

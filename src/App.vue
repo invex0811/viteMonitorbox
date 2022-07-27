@@ -65,6 +65,7 @@ export default {
 </script>
 
 <style>
+
 .full-screen{
   min-height: 100vh;
 }

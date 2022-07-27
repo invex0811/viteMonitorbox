@@ -1,5 +1,28 @@
 <template>
   <section>
+      <!--  Окно инструкции  -->
+    <div class="position-absolute d-flex align-center" style="left: 15px;bottom: 15px">
+      <v-btn icon="" >
+        <v-icon color="warning" size="x-large">help_outline</v-icon>
+        <v-overlay activator="parent" v-model="overlay" class="bg-grey-darken-3">
+          <v-row justify="center" @click="overlay = false">
+            <v-col cols="8">
+              <v-timeline class="mt-2">
+                <v-timeline-item v-for="list in guideList" :key="list.title">
+                  <div>
+                    <div class="text-h6">
+                      {{list.title}}
+                    </div>
+                    {{list.text}}
+                  </div>
+                </v-timeline-item>
+              </v-timeline>
+            </v-col>
+          </v-row>
+        </v-overlay>
+      </v-btn>
+    </div>
+
     <div>
       <!--      Инпуты            -->
       <v-form ref="form">
@@ -284,14 +307,45 @@ export default {
     overTimeCash: 0,
     // axios error
     axiosError: "",
+
+    // guide
+    overlay: false,
+    guideMark: true,
+    guideList:[
+      {
+        title: 'Working days', text: 'Выберите в выпадающем списке количество рабочих дней в месяце'
+      },
+      {
+        title: 'Work hours', text: 'Введите количество часов которые вы проработали в этом месяце '
+      },
+      {
+        title: ' Rate', text: 'Введите вашу ставку за час'
+      },
+      {
+        title: '4%', text: 'Автоматически включён чекбокс для подсчета отпускных, если не хотите чтобы отпускные считались, уберите галочку '
+      },
+      {
+        title: 'Tax', text: 'Так же автоматически включён чекбокс для подсчета есв(55$), если не хотите чтобы есв считалось, уберите галочку '
+      },
+      {
+        title: 'Dollar exchange', text: 'Если включить данный чекбокс то появится поле для ввода курса и снизу покажется меню ,в котором можно выбрать дату для просмотра курса или нажать apply для автоматического ввода курса на текущий день в поле курса доллара, после ввода курса можно нажать на знак восклицания возле total cash для просмотра 5% налога в появляющейся таблице '
+      },
+      {
+        title: 'Есв', text: 'Галочка в низ показывает дополнительные чекбоксы'
+      },
+      {
+        title: 'Cash bonus', text: 'Появляется поле в котором можно ввести бонус к зарплате (менторство, аудит)'
+      },
+      {
+        title: 'Holidays', text: 'Появляется выпадающий список в котором можно выбрать количество праздничных дней'
+      },
+    ]
   }),
   mounted() {
     this.dateForExchenge = DateTime.local().toFormat("kkkk" + "LL" + "dd");
     axios
       .get(
-        "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=" +
-          this.dateForExchenge +
-          "&json"
+        "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?date=" + this.dateForExchenge + "&json"
       )
       .then(
         (response) => (
@@ -385,4 +439,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+#blink{
+  animation: blink 1s infinite;
+}
+@keyframes blink {
+  from { opacity: 1; /* Непрозрачный текст */ }
+  to { opacity: 0; /* Прозрачный текст */ }
+}
+</style>

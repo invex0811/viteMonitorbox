@@ -21,7 +21,6 @@ const routes = [
         // meta: {layout:'Navbar'},
         component: () => import('@/pages/Gap&Unloading.vue')
     },
-   
     {
         path: '/autocommitCounter',
         name: 'Autocommit counter',
@@ -31,6 +30,11 @@ const routes = [
         path: '/userProfile',
         name: 'My profile',
         component: () => import('@/pages/UserProfile.vue')
+    },
+    {
+        path: '/timestampCalculator',
+        name: 'Timestamp calculator',
+        component: () => import('@/pages/TimestampCalculator.vue')
     },
 
     // {
