@@ -403,7 +403,7 @@ export default {
       return (this.totalMoney / 100) * (this.input__4percentWeekend * 4);
     },
     plusTax() {
-      return 55 * this.input__tax;
+      return 43 * this.input__tax;
     },
     plusRent() {
       return 47 * this.input__rent;
